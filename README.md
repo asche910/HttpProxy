@@ -202,6 +202,35 @@ public class ProxyUtils {
 ```
 需要注意一点就是全局只是在该java项目中生效，它不会更改系统中的代理。
 
+### 检测
+设置完代理后，也可以用另外一种方法来判断是否代理成功，即直接获取当前ip地址。
+这里我使用的是 https://www.ipip.net/ip.html  这个网站，请求获取html后再解析得到自己的当前ip
+
+``` java
+
+ private static final String MY_IP_API = "https://www.ipip.net/ip.html";
+
+    // 获取当前ip地址，判断是否代理成功
+    public static String getMyIp() {
+        try {
+            String html = HttpUtils.getResponseContent(MY_IP_API);
+
+            Document doc = Jsoup.parse(html);
+            Element element = doc.selectFirst("div.tableNormal");
+
+            Element ele = element.selectFirst("table").select("td").get(1);
+
+            String ip = element.selectFirst("a").text();
+
+            // System.out.println(ip);
+            return ip;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+``` 
+
 
 ## 优化
 
