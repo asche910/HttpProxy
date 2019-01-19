@@ -52,7 +52,7 @@ public class HttpUtils {
 
         // 设置代理
         if (ipBean != null) {
-            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("222.171.251.43", 40149));
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(ipBean.getIp(), ipBean.getPort()));
 
             connection = (HttpsURLConnection) new URL(url).openConnection(proxy);
 
